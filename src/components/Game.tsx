@@ -30,10 +30,15 @@ function Game() {
 
   return (
     <div>
+      {winner ? (
+        <h2>Winner is {winner}</h2>
+      ) : !squares.includes(null) ? (
+        <h2>It is a TIE!</h2>
+      ) : null}
+
       <Board
         squares={squares}
         dimension={dimension}
-        winner={winner}
         handleClick={updateSquare}
       />
     </div>

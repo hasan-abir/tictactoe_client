@@ -8,7 +8,7 @@
 }
 
 h1,
-h3,
+h2,
 p {
   text-align: center;
 }
@@ -17,12 +17,57 @@ h1 {
   margin-bottom: 1rem;
 }
 
-h3 {
+h2 {
   margin-bottom: 3rem;
 }
 
 p {
   margin-bottom: 4rem;
+}
+
+input,
+select,
+button {
+  font-size: 1rem;
+  border-radius: 3px;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+input,
+select {
+  padding: 0.5rem;
+  margin: 1rem 0;
+}
+
+button {
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  background: cornflowerblue;
+  color: #fff;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  border-color: #ccc;
+  margin-top: 0.5rem;
+}
+
+form {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+hr {
+  max-width: 100px;
+  margin: 2rem auto;
+  border-top: 1px solid #ccc;
 }
 
 .container {
