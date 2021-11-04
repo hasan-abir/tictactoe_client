@@ -13,50 +13,53 @@ p {
   text-align: center;
 }
 
-h1 {
+.hero h1 {
   margin-bottom: 1rem;
 }
 
-h2 {
-  margin-bottom: 3rem;
-}
-
-p {
+.hero {
   margin-bottom: 4rem;
 }
 
-input,
-select,
-button {
+label {
+  display: block;
+}
+
+input:not([type="radio"]),
+.cta {
   font-size: 1rem;
   border-radius: 3px;
 }
 
-input {
+input:not([type="radio"]) {
   width: 100%;
   border: 1px solid #ccc;
   font-size: 1rem;
-}
-
-input,
-select {
   padding: 0.5rem;
   margin: 1rem 0;
 }
 
-button {
+input[type="radio"] {
+  margin-top: 1rem;
+  margin-right: 0.8rem;
+}
+
+.form-group {
+  margin-left: 1rem;
+}
+
+.form-group label {
+  display: inline;
+}
+
+.cta {
   width: 100%;
   border: none;
   padding: 0.5rem;
   background: cornflowerblue;
   color: #fff;
   cursor: pointer;
-}
-
-select {
-  width: 100%;
-  border-color: #ccc;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 form {
@@ -173,4 +176,18 @@ hr {
     width: calc(300px / 5);
     height: calc(300px / 5);
   }
+}
+
+.error {
+  color: #e70000;
+  margin-bottom: 1.5rem;
+}
+
+.choose-grid {
+  display: flex;
+  justify-content: center;
+}
+
+.choose-grid button:first-child {
+  margin-right: 1rem;
 }

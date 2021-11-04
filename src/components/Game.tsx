@@ -1,32 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Board from "./Board";
 import calculateWinner from "../utils/calculateWinner";
+import { GameConfig } from "../utils/socket";
+
+interface PropTypes {
+  config: GameConfig | null;
+}
+
+interface Player {
+  symbol: "x" | "o";
+  turn: boolean;
+}
 
 export type SquareVal = "x" | "o" | null;
 
-function Game() {
+function Game({ config }: PropTypes) {
   const [dimension, setDimension] = useState<3 | 5>(3);
   const [squares, setSquares] = useState<SquareVal[]>(
     Array(dimension * dimension).fill(null)
   );
-  const [nextTurn, setNextTurn] = useState<boolean>(false);
+  const [player, setPlayer] = useState<Player>({ symbol: "x", turn: false });
   const [winner, setWinner] = useState<SquareVal>(null);
 
   const updateSquare = (i: number) => {
     const tempSquares = [...squares];
 
-    if (tempSquares[i] || winner) return null;
+    if (tempSquares[i] || !player.turn || winner) return null;
 
-    const squareVal = nextTurn ? "o" : "x";
-
-    tempSquares[i] = squareVal;
+    tempSquares[i] = player.symbol;
 
     setSquares(tempSquares);
 
-    setNextTurn(!nextTurn);
+    setPlayer((val) => {
+      const tempPlayer = { ...val, turn: !val.turn };
+      return tempPlayer;
+    });
 
     setWinner(calculateWinner(tempSquares, dimension));
   };
+
+  useEffect(() => {
+    if (config) {
+      setDimension(config.dimension);
+      setSquares(Array(config.dimension * config.dimension).fill(null));
+
+      setPlayer((val) => {
+        const tempPlayer = {
+          ...val,
+          turn: config.start,
+          symbol: config.player,
+        };
+        return tempPlayer;
+      });
+    }
+  }, [config]);
 
   return (
     <div>

@@ -1,60 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { joinRoom, roomOccupied } from "../utils/socket";
 
-interface PropTypes {
-  setIsJoined: (isJoined: boolean) => void;
-}
-
-function Join({ setIsJoined }: PropTypes) {
-  const [roomToJoin, setRoomJoin] = useState<string>("");
-  const [roomToCreate, setRoomCreate] = useState<string>("");
-  const [dimension, setDimension] = useState<number>(3);
+function Join() {
+  const [roomID, setRoomID] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    setIsJoined(true);
+    joinRoom(roomID);
   };
 
-  const handleCreate = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    setIsJoined(true);
-  };
+  useEffect(() => {
+    roomOccupied((msg) => {
+      setError(msg);
+    });
+  }, []);
 
   return (
     <div>
+      {error ? <p className="error">{error}</p> : null}
+
       <form onSubmit={handleJoin}>
-        <label>Join a room</label>
+        <label>Join/Create a room</label>
         <input
           type="text"
           placeholder="Room ID"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setRoomJoin(e.target.value)
+            setRoomID(e.target.value)
           }
         />
-        <button type="submit">Join</button>
-      </form>
-      <hr />
-      <form onSubmit={handleCreate}>
-        <label>Create a room</label>
-        <input
-          type="text"
-          placeholder="Room ID"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setRoomCreate(e.target.value)
-          }
-        />
-        <label>Board dimension</label>
-        <select
-          value={dimension}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setDimension(parseInt(e.target.value))
-          }
-        >
-          <option value="3">3x3</option>
-          <option value="5">5x5</option>
-        </select>
-        <button type="submit">Create</button>
+        <button type="submit" className="cta">
+          Join
+        </button>
       </form>
     </div>
   );
