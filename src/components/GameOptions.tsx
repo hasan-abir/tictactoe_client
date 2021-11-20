@@ -1,12 +1,8 @@
 import { setGameOptions } from "../utils/socket";
 
-interface PropTypes {
-  roomID: string;
-}
-
-function GameOptions({ roomID }: PropTypes) {
+function GameOptions() {
   const handleClick = (dimension: 3 | 5) => {
-    setGameOptions(roomID, dimension);
+    setGameOptions(dimension);
   };
 
   return (

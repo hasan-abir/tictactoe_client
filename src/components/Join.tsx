@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Alert from "./Alert";
 import { joinRoom, roomOccupied } from "../utils/socket";
 
 function Join() {
@@ -14,12 +15,15 @@ function Join() {
   useEffect(() => {
     roomOccupied((msg) => {
       setError(msg);
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
     });
   }, []);
 
   return (
     <div>
-      {error ? <p className="error">{error}</p> : null}
+      {error ? <Alert msg={error} error /> : null}
 
       <form onSubmit={handleJoin}>
         <label>Join/Create a room</label>

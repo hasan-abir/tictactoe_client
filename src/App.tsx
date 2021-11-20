@@ -7,12 +7,13 @@ import {
   currentPlayerJoined,
   startGame,
   GameConfig,
+  endGame,
+  gameEnded,
 } from "./utils/socket";
 
 function App() {
   const [isJoined, setIsJoined] = useState<boolean>(false);
   const [isRoomFull, setIsRoomFull] = useState<boolean>(false);
-  const [currentRoomID, setCurrentRoomID] = useState<string>("");
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [gameConfig, setGameConfig] = useState<GameConfig | null>(null);
 
@@ -21,28 +22,41 @@ function App() {
       setIsJoined(true);
     });
 
-    playersJoined((roomID) => {
+    playersJoined(() => {
       setIsRoomFull(true);
-      setCurrentRoomID(roomID);
     });
 
     startGame((config) => {
       setGameStarted(true);
       setGameConfig(config);
     });
+
+    gameEnded(() => {
+      setIsJoined(false);
+      setIsRoomFull(false);
+      setGameStarted(false);
+      setGameConfig(null);
+    });
   }, []);
   return (
     <div className="container">
       {isJoined ? (
-        isRoomFull ? (
-          gameStarted ? (
-            <Game config={gameConfig} />
+        <>
+          {isRoomFull ? (
+            gameStarted ? (
+              <Game config={gameConfig} />
+            ) : (
+              <GameOptions />
+            )
           ) : (
-            <GameOptions roomID={currentRoomID} />
-          )
-        ) : (
-          <h2>Waiting for all the players to join...</h2>
-        )
+            <h2>Waiting for all the players to join...</h2>
+          )}
+          <div className="leave-room">
+            <button onClick={endGame} className="leave-btn">
+              Leave room
+            </button>
+          </div>
+        </>
       ) : (
         <>
           <div className="hero">

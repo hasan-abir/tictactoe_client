@@ -52,14 +52,31 @@ input[type="radio"] {
   display: inline;
 }
 
+button {
+  cursor: pointer;
+}
+
 .cta {
   width: 100%;
   border: none;
   padding: 0.5rem;
   background: cornflowerblue;
   color: #fff;
-  cursor: pointer;
   margin-top: 1rem;
+}
+
+.leave-room {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.leave-btn {
+  width: fit-content;
+  border: none;
+  padding: 0.5rem;
+  background: #ce3939;
+  color: #fff;
 }
 
 form {
@@ -178,11 +195,6 @@ hr {
   }
 }
 
-.error {
-  color: #e70000;
-  margin-bottom: 1.5rem;
-}
-
 .choose-grid {
   display: flex;
   justify-content: center;
@@ -190,4 +202,20 @@ hr {
 
 .choose-grid button:first-child {
   margin-right: 1rem;
+}
+
+.alert {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #2ccc2c;
+  background: #d0f8d0;
+  border-radius: 3px;
+  padding: 0.5rem 1rem;
+}
+
+.alert-error {
+  color: #fd3636;
+  background: #ffdada;
 }
