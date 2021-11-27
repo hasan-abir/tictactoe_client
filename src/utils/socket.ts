@@ -51,4 +51,12 @@ export const gameEnded = (callback: () => void) => {
   socket.on("game_ended", callback);
 };
 
+export const resetGame = () => {
+  socket.emit("reset_game");
+};
+
+export const gameResetted = (callback: () => void) => {
+  socket.on("game_resetted", callback);
+};
+
 export default socket;

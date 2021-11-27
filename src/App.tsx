@@ -9,6 +9,7 @@ import {
   GameConfig,
   endGame,
   gameEnded,
+  resetGame,
 } from "./utils/socket";
 
 function App() {
@@ -51,8 +52,13 @@ function App() {
           ) : (
             <h2>Waiting for all the players to join...</h2>
           )}
-          <div className="leave-room">
-            <button onClick={endGame} className="leave-btn">
+          <div className="btn-group">
+            {gameStarted ? (
+              <button onClick={resetGame} className="text-btn">
+                Reset game
+              </button>
+            ) : null}
+            <button onClick={endGame} className="text-btn text-btn-secondary">
               Leave room
             </button>
           </div>

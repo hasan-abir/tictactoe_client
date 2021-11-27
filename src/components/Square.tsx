@@ -7,7 +7,10 @@ interface PropTypes {
 
 function Square({ value, handleClick }: PropTypes) {
   return (
-    <button className="square" onClick={() => handleClick()}>
+    <button
+      className={`square ${value === "x" ? "square-alternate" : ""}`}
+      onClick={() => handleClick()}
+    >
       {value}
     </button>
   );

@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import Board from "./Board";
 import calculateWinner from "../utils/calculateWinner";
-import { GameConfig, updateGame, gameUpdated } from "../utils/socket";
+import {
+  GameConfig,
+  updateGame,
+  gameUpdated,
+  gameResetted,
+} from "../utils/socket";
 
 interface PropTypes {
   config: GameConfig | null;
@@ -32,7 +37,7 @@ function Game({ config }: PropTypes) {
     setSquares(tempSquares);
 
     setPlayer((val) => {
-      const tempPlayer = { ...val, turn: !val.turn };
+      const tempPlayer = { ...val, turn: false };
       return tempPlayer;
     });
 
@@ -65,18 +70,30 @@ function Game({ config }: PropTypes) {
 
       setWinner(calculateWinner(newSquares, dimension));
     });
+
+    gameResetted(() => {
+      setSquares(Array(dimension * dimension).fill(null));
+
+      setWinner(null);
+    });
   }, [config, dimension]);
 
   return (
     <div>
       <div className="hero">
         {winner ? (
-          <h2>Winner is {winner}</h2>
+          <h2>
+            Winner is <span className="capitalize">{winner}</span>
+          </h2>
         ) : !squares.includes(null) ? (
           <h2>It is a TIE!</h2>
         ) : !player.turn ? (
-          <h2>Waiting on 2nd player's move...</h2>
-        ) : null}
+          <h2>Waiting on next move...</h2>
+        ) : (
+          <h2>
+            You are - <span className="capitalize">{player.symbol}</span>
+          </h2>
+        )}
       </div>
 
       <Board

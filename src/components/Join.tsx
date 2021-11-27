@@ -33,6 +33,7 @@ function Join() {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setRoomID(e.target.value)
           }
+          autoFocus
         />
         <button type="submit" className="cta">
           Join
