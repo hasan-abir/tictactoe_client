@@ -1,7 +1,10 @@
 import { io } from "socket.io-client";
 import { SquareVal } from "../components/Game";
 
-const socket = io("http://localhost:5000");
+const apiHost: string =
+  process.env.REACT_APP_API_HOST || "http://localhost:5000";
+
+const socket = io(apiHost);
 
 export const joinRoom = (roomID: string) => {
   socket.emit("join_room", roomID);
