@@ -9,7 +9,9 @@ function Join() {
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    joinRoom(roomID);
+    if (roomID !== "") {
+      joinRoom(roomID);
+    }
   };
 
   useEffect(() => {
